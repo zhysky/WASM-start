@@ -21,9 +21,11 @@ emsdk_env.bat
 emcc main.cpp
 emcc main.cpp -s WASM=1 
 emcc main.cpp -s WASM=1 -o main.wasm
-
-
-
 emcc -o main.html main.cpp -O3 -s WASM=1 -s "EXPORTED_RUNTIME_METHODS=['ccall']" --shell-file "./shell_html/shell.html"
+
+
+
+
+emcc main.cpp -O3 -s SIDE_MODULE=1 -o main.wasm
 
 ```
