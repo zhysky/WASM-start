@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>Emscripten-Generated Code</title>
+  </head>
+
+  <body>
+    <hr />
+    <button class="mybutton">运行我的函数</button>
+    <hr />
+    <script async src="index.js"></script>
+    <script type="module">
+      // document
+      //   .querySelector('.mybutton')
+      //   .addEventListener('click', function () {
+      //     var l = Module.ccall('myFunction', null, null, null);
+      //     console.log('%c Line:17 🥒 result', 'color:#fca650', l);
+      //   });
+
+      const wasmModule = await fetch('../main.wasm')
+        .then((response) => response.arrayBuffer())
+        .then((buffer) => WebAssembly.compile(buffer))
+        .then(
+          (module) =>
+            new WebAssembly.Instance(module, {
+              env: {
+                puts: console.log,
+                memory: wasmMemory,
+                __memory_base: 0,
+              },
+            })
+        )
+        .then((instance) => {
+          const res = instance.exports.myFunction();
+          console.log('%c Line:36 🥝 res', 'color:#93c0a4', res);
+        });
+
+      //       const wasmModule = await WebAssembly.instantiateStreaming(
+      //     fetch('multiply.wasm'),
+      //     importObject
+      // );
+    </script>
+  </body>
+</html>

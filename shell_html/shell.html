@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Emscripten-Generated Code</title>
+  </head>
+  <body>
+    <hr />
+    <button class="mybutton">运行我的函数</button>
+    <hr />
+
+    {{{ SCRIPT }}}
+
+    <script>
+      document
+        .querySelector('.mybutton')
+        .addEventListener('click', function () {
+          var result = Module.ccall(
+            'myFunction', // name of C function
+            null, // return type
+            null, // argument types
+            null // arguments
+          );
+          console.log('%c Line:17 🥒 result', 'color:#fca650', result);
+        });
+    </script>
+  </body>
+</html>
