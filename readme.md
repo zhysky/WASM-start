@@ -18,14 +18,17 @@ emsdk_env.bat
 - 编译命令：
 
 ```bash
-emcc main.cpp
-emcc main.cpp -s WASM=1 
-emcc main.cpp -s WASM=1 -o main.wasm
-emcc -o main.html main.cpp -O3 -s WASM=1 -s "EXPORTED_RUNTIME_METHODS=['ccall']" --shell-file "./shell_html/shell.html"
+emcc ./cpp/main.cpp
+emcc ./cpp/main.cpp -s WASM=1 
+emcc ./cpp/main.cpp -O3 -s SIDE_MODULE=1 -o main.wasm
+emcc -o ./out/main.html ./cpp/main.cpp -O3 -s WASM=1 -s "EXPORTED_RUNTIME_METHODS=['ccall']" --shell-file "./shell_html/shell.html"
+# 以上命令生成wasm的同时还会生成胶水js
+
+emcc ./cpp/main.cpp -s WASM=1 -o main.wasm
+# 只生成wsam，但是不能手动fetch加载
 
 
-
-
-emcc main.cpp -O3 -s SIDE_MODULE=1 -o main.wasm
+#  如果要手动 await fetch('../main.wasm') ，需要用下面的命令来生成wasm文件
+ emcc -O3 ./cpp/add.c -o add.wasm -s STANDALONE_WASM 
 
 ```
