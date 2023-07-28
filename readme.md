@@ -18,6 +18,7 @@ emsdk_env.bat
 - 编译命令：
 
 ```bash
+# em++
 emcc ./cpp/main.cpp
 emcc ./cpp/main.cpp -s WASM=1 
 emcc ./cpp/main.cpp -O3 -s SIDE_MODULE=1 -o main.wasm
@@ -30,5 +31,12 @@ emcc ./cpp/main.cpp -s WASM=1 -o main.wasm
 
 #  如果要手动 await fetch('../main.wasm') ，需要用下面的命令来生成wasm文件
  emcc -O3 ./cpp/add.c -o add.wasm -s STANDALONE_WASM 
+
+```
+
+
+```cmake
+cmake -B build && cmake --build build -j4
+emcmake cmake -B build-web && cmake --build build-web -j4
 
 ```
