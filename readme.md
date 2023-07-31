@@ -36,7 +36,10 @@ emcc ./cpp/main.cpp -s WASM=1 -o main.wasm
 
 
 ```cmake
+
+cmake -S . -B build -G "MinGW Makefiles"
+cmake --build build
+
 cmake -B build && cmake --build build -j4
 emcmake cmake -B build-web && cmake --build build-web -j4
-
 ```
